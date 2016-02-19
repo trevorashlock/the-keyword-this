@@ -8,7 +8,7 @@
      Implicit: look to the left of the dot at call time. (Is not Explicit) 
      Explicit: .call, .apply, .bind-  this the function what the this keyword is going to do. 
      new Binding: When a function is invoked, the this keyword inside that function is bound to the new object being invoked. 
-     window Binding:
+     window Binding: binds to the window object.
      
 
   // 3) What is the difference between call and apply?
@@ -48,9 +48,11 @@ function Car (make, model, year) {
         this.make = make,
         this.model =  model,
         this.year = year
-     // this.move = 0,
+        this.move = 0,
         this.moveCar = function() {
-          return this.Car;
+          this.move += 10
+          return this.move;
+
         }
 
 }
@@ -72,8 +74,8 @@ var getYear = function(){
 //Above you're given the getYear function. Using your prius and mustang objects from above, use the proper syntax that will allow for you to call the getYear function with the prius then the mustang objects being the focal objects. *Don't add getYear as a property on both objects*.
 
 //Note(no tests)
- getYear(prius);
- getYear(mustang);
+ getYear.call(prius);
+ getYear.call(mustang);
 
 
 
@@ -91,7 +93,7 @@ var getMyUsername = function(){
   console.log(this.username);
 };
 
-setTimeout(getUsername(myUser), 5000);
+setTimeout(getMyUsername.bind(myUser), 5000);
 
 //Above you're given an object, a function, and a setTimeout invocation. After 5 seconds, what will the getUsername function return?
 //Note(no tests)
